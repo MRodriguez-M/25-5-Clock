@@ -1,4 +1,5 @@
 import AdjustButtons from "./AdjustButtons";
+import Timer from "./Timer";
 
 const buttonData = [
   {"label": "Break", "length": 5},
@@ -7,9 +8,12 @@ const buttonData = [
 
 function App() {
   return (
-    buttonData.map(({label, length}) => 
-      <AdjustButtons key={label} label={label} length={length} />
-    )
+    <>
+      {buttonData.map(({label, length}) => 
+        <AdjustButtons key={label} label={label} length={length} />
+      )}
+      <Timer label={buttonData[0].label} />
+    </>
   );
 }
 
