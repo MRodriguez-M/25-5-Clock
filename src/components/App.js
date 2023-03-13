@@ -1,14 +1,14 @@
-import AdjustButtons from "./AdjustButtons"
+import AdjustButtons from "./AdjustButtons";
 
 const buttonData = [
-  {"label": "Break"},
-  {"label": "Session"}  
+  {"label": "Break", "length": 5},
+  {"label": "Session", "length": 25}  
 ]
 
 function App() {
   return (
-    buttonData.map(({label}) => 
-      <AdjustButtons label={label} key={label} />
+    buttonData.map(({label, length}) => 
+      <AdjustButtons key={label} label={label} length={length} />
     )
   );
 }
