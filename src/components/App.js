@@ -12,15 +12,22 @@ function App() {
   const [seconds, setSeconds] = useState(0);
 
   const setTime = () => {
-    setMinutes((prevMin) => prevMin - 1);
-    setSeconds((prevSec) => prevSec - 1);
+    if(seconds == 0) {
+      if(minutes != 0) {
+        setSeconds(59);
+        setMinutes((prevMin) => prevMin - 1);
+      }
+    }
+    else {
+      setSeconds((prevSec) => prevSec - 1);
+    }
   };
 
   useEffect(() => {
     const interval = setInterval(setTime, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [seconds, minutes]);
 
   return (
     <>
