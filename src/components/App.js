@@ -10,6 +10,7 @@ const buttonData = [
 function App() {
   const [minutes, setMinutes] = useState(buttonData[1].length);
   const [seconds, setSeconds] = useState(0);
+  const [paused, setPaused] = useState(true);
 
   const setTime = () => {
     if(seconds == 0) {
@@ -23,18 +24,29 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    const interval = setInterval(setTime, 1000);
+  const handleClick = () => {
+    if(paused == true) {
+      setPaused(false);
+    }
+    else {
+      setPaused(true);
+    }
+  };
 
-    return () => clearInterval(interval);
-  }, [seconds, minutes]);
+  useEffect(() => {
+    if(paused != true) {
+      const interval = setInterval(setTime, 1000);
+    
+      return () => clearInterval(interval);
+    }
+  }, [seconds, minutes, paused]);
 
   return (
     <>
       {buttonData.map(({label, length}) => 
         <AdjustButtons key={label} label={label} length={length} />
       )}
-      <Timer label={buttonData[1].label} minutes={minutes} seconds={seconds} />
+      <Timer label={buttonData[1].label} minutes={minutes} seconds={seconds} handleClick={handleClick} />
     </>
   );
 }
