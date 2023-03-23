@@ -24,13 +24,18 @@ function App() {
     }
   };
 
-  const handleClick = () => {
+  const handleClickStartStop = () => {
     if(paused == true) {
       setPaused(false);
     }
     else {
       setPaused(true);
     }
+  };
+
+  const handleClickReset = () => {
+    setMinutes(buttonData[1].length);
+    setSeconds(0);
   };
 
   useEffect(() => {
@@ -46,7 +51,7 @@ function App() {
       {buttonData.map(({label, length}) => 
         <AdjustButtons key={label} label={label} length={length} />
       )}
-      <Timer label={buttonData[1].label} minutes={minutes} seconds={seconds} handleClick={handleClick} />
+      <Timer label={buttonData[1].label} minutes={minutes} seconds={seconds} handleClickStartStop={handleClickStartStop} handleClickReset={handleClickReset} />
     </>
   );
 }
