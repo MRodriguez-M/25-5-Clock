@@ -8,6 +8,7 @@ function App() {
   const [paused, setPaused] = useState(true);
   const [sessionLength, setSessionLength] = useState(25);
   const [breakLength, setBreakLength] = useState(5);
+  const [currentTimer, setCurrentTimer] = useState("Session");
 
   const setTime = () => {
     if(seconds == 0) {
@@ -31,25 +32,35 @@ function App() {
   };
 
   const handleClickReset = () => {
+    if(currentTimer == "Break") {
+      setCurrentTimer("Session");
+    }
+    
     setMinutes(25);
     setSeconds(0);
+    setSessionLength(25);
+    setBreakLength(5);
   };
 
   const handleClickIncrement = (event) => {
-    if(event.currentTarget.id == "Session-increment" && sessionLength < 60) {
-      setSessionLength((prevLen) => prevLen + 1);
-    }
-    if(event.currentTarget.id == "Break-increment" && breakLength < 60) {
-      setBreakLength((prevLen) => prevLen + 1);
+    if(paused == true) {
+      if(event.currentTarget.id == "Session-increment" && sessionLength < 60) {
+        setSessionLength((prevLen) => prevLen + 1);
+      }
+      if(event.currentTarget.id == "Break-increment" && breakLength < 60) {
+        setBreakLength((prevLen) => prevLen + 1);
+      }
     }
   };
 
   const handleClickDecrement = (event) => {
-    if(event.currentTarget.id == "Session-decrement" && sessionLength > 1) {
-      setSessionLength((prevLen) => prevLen - 1);
-    }
-    if(event.currentTarget.id == "Break-decrement" && breakLength > 1) {
-      setBreakLength((prevLen) => prevLen - 1);
+    if(paused == true) {
+      if(event.currentTarget.id == "Session-decrement" && sessionLength > 1) {
+        setSessionLength((prevLen) => prevLen - 1);
+      }
+      if(event.currentTarget.id == "Break-decrement" && breakLength > 1) {
+        setBreakLength((prevLen) => prevLen - 1);
+      }
     }
   };
 
@@ -65,7 +76,7 @@ function App() {
     <div id="main-container">
       <AdjustButtons label="Break" length={breakLength} handleClickIncrement={handleClickIncrement} handleClickDecrement={handleClickDecrement} />
       <AdjustButtons label="Session" length={sessionLength} handleClickIncrement={handleClickIncrement} handleClickDecrement={handleClickDecrement} />
-      <Timer label="Session" minutes={minutes} seconds={seconds} handleClickStartStop={handleClickStartStop} handleClickReset={handleClickReset} />
+      <Timer label={currentTimer} minutes={minutes} seconds={seconds} handleClickStartStop={handleClickStartStop} handleClickReset={handleClickReset} />
     </div>
   );
 }
