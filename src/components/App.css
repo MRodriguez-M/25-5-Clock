@@ -1,0 +1,15 @@
+#main-container {
+    background-color: #bebebe;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: auto;
+}
+
+#container {
+    background-color: green;
+    display: flex;
+    flex-direction: row;
+    width: 75%;
+    margin: auto;
+}
