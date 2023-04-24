@@ -35,7 +35,7 @@ function App() {
     if(currentTimer == "Break") {
       setCurrentTimer("Session");
     }
-    
+
     setMinutes(25);
     setSeconds(0);
     setSessionLength(25);
@@ -46,9 +46,17 @@ function App() {
     if(paused == true) {
       if(event.currentTarget.id == "Session-increment" && sessionLength < 60) {
         setSessionLength((prevLen) => prevLen + 1);
+        if(currentTimer == "Session") {
+          setMinutes(sessionLength + 1);
+          setSeconds(0);
+        }
       }
       if(event.currentTarget.id == "Break-increment" && breakLength < 60) {
         setBreakLength((prevLen) => prevLen + 1);
+        if(currentTimer == "Break") {
+          setMinutes(breakLength + 1);
+          setSeconds(0);
+        }
       }
     }
   };
@@ -57,9 +65,17 @@ function App() {
     if(paused == true) {
       if(event.currentTarget.id == "Session-decrement" && sessionLength > 1) {
         setSessionLength((prevLen) => prevLen - 1);
+        if(currentTimer == "Session") {
+          setMinutes(sessionLength - 1);
+          setSeconds(0);
+        }
       }
       if(event.currentTarget.id == "Break-decrement" && breakLength > 1) {
         setBreakLength((prevLen) => prevLen - 1);
+        if(currentTimer == "Break") {
+          setMinutes(breakLength - 1);
+          setSeconds(0);
+        }
       }
     }
   };
