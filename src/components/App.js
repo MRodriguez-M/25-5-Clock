@@ -83,6 +83,17 @@ function App() {
   useEffect(() => {
     if(paused != true) {
       const interval = setInterval(setTime, 1000);
+      
+      if(minutes == 0 && seconds == 0) {
+        if(currentTimer == "Session") {
+          setCurrentTimer("Break");
+          setMinutes(breakLength);
+        }
+        else {
+          setCurrentTimer("Session");
+          setMinutes(sessionLength);
+        }
+      }
     
       return () => clearInterval(interval);
     }
